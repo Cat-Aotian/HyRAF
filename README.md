@@ -50,5 +50,4 @@ python -m hyraf.train --dataset adni --data_root /path/to/ADNI --gpu 0
 
 ## License
 
-This project is released under the [CC BY-NC 4.0](LICENSE) license. `hyraf/lorentz.py` is adapted from
-[MERU](https://github.com/facebookresearch/meru) (CC BY-NC 4.0).
+This project is released under the [CC BY-NC 4.0](LICENSE) license.
