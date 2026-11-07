@@ -1,0 +1,6 @@
+runs/
+pretrained/
+__pycache__/
+*.pyc
+*.pth
+.ipynb_checkpoints/
