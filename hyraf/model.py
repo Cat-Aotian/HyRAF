@@ -24,7 +24,7 @@ class Modality(nn.Module):
         self.encoder = encoder
         self.head = nn.Sequential(nn.Linear(feat_dim, 256), nn.ReLU(), nn.Dropout(0.3), nn.Linear(256, num_class))
         self.proj = nn.Identity() if feat_dim == embed_dim else nn.Sequential(nn.Linear(feat_dim, embed_dim), nn.GELU())
-        self.log_alpha = nn.Parameter(torch.tensor(-2.0))     
+        self.log_alpha = nn.Parameter(torch.tensor(-2.0))
         self.reliability = reliability
         if reliability:
             self.rel = nn.Linear(feat_dim, rel_dim)
@@ -148,8 +148,8 @@ class HyRAF(nn.Module):
         lb = -s * L.pairwise_dist(b, torch.cat([a, qa], 0), c)
         t = torch.arange(n, device=a.device)
         loss = 0.5 * (F.cross_entropy(la, t) + F.cross_entropy(lb, t))
-        if K > 0: loss = loss * math.log(n) / math.log(n + K)          
-        if self.queue == 0: return loss                                 
+        if K > 0: loss = loss * math.log(n) / math.log(n + K)
+        if self.queue == 0: return loss
         with torch.no_grad():
             Q = self.queue; p = int(self.q_ptr[k]); idx = (torch.arange(n, device=a.device) + p) % Q
             getattr(self, f'q{k}_a')[idx] = a.detach(); getattr(self, f'q{k}_b')[idx] = b.detach()
@@ -212,7 +212,7 @@ class HyRAF(nn.Module):
 
         out = {'weights': wts.detach(), 'branch_logits': {n: z[n].detach() for n in names}}
         if y is None:
-            out['reliability'] = {n: (-sig[n][0]).detach() for n in sig}     
+            out['reliability'] = {n: (-sig[n][0]).detach() for n in sig}
             return logits, out
 
         # training losses
